@@ -1,7 +1,5 @@
 {
   "name": "sleeptracker",
-  "integrations": {
-    "cordova": {}
-  },
+  "integrations": {},
   "type": "angular"
 }

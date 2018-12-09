@@ -6,18 +6,22 @@ import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
 
+import { HomeRoutingModule } from './home-routing.module';
+import { ViewPageModule } from '../pages/view/view.module';
+import { OvernightPageModule } from '../pages/overnight/overnight.module';
+import { SleepinessPageModule } from '../pages/sleepiness/sleepiness.module';
+
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild([
-      {
-        path: '',
-        component: HomePage
-      }
-    ])
-  ],
+    HomeRoutingModule,
+    ViewPageModule,
+    OvernightPageModule,
+    SleepinessPageModule
+    ],
   declarations: [HomePage]
 })
 export class HomePageModule {}

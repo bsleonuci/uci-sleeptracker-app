@@ -1,0 +1,17 @@
+<ion-item padding-top padding-bottom lines="none"> 
+	<ion-text>Time to log your sleep! Enter the date and time you went to sleep, and the 
+		date and time you went to bed, and we'll take care of the rest!</ion-text>
+</ion-item>
+<ion-item>
+	<ion-label>Slept At</ion-label>
+	<ion-datetime placeholder="MM-DD-YYYY, HH:mm" display-format="MM-DD-YYYY, HH:mm" [(ngModel)]="startDate"></ion-datetime>
+</ion-item>
+
+<ion-item>
+	<ion-label>Woke At</ion-label>
+	<ion-datetime placeholder="MM-DD-YYYY, HH:mm" display-format="MM-DD-YYYY, HH:mm" [(ngModel)]="endDate"></ion-datetime>
+</ion-item>
+
+<ion-item lines="none">
+	<ion-button (click)="logOvernightDates()">Save</ion-button>
+</ion-item>

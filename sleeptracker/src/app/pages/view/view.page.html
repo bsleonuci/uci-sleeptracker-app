@@ -1,0 +1,10 @@
+<ion-header text-center>
+	<ion-toolbar>
+		<ion-title> View Sleep Data </ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+	<ion-refresher slot="fixed" (ionRefresh)="updateSleepData($event)"></ion-refresher>
+	<app-view></app-view>
+</ion-content>

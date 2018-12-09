@@ -1,11 +1,36 @@
-<ion-header>
+<!--ion-header>
   <ion-toolbar>
-    <ion-title>
+    <ion-title text-center>
       Sleep Logger
     </ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header-->
 
-<ion-content padding>
-  
-</ion-content>
+<!--ion-content padding-->
+	<ion-tabs>
+		<ion-tab tab="view">
+			<ion-router-outlet name="view"></ion-router-outlet>
+		</ion-tab>
+		<ion-tab tab="overnight">
+			<ion-router-outlet name="overnight"></ion-router-outlet>
+		</ion-tab>
+		<ion-tab tab="sleepiness">
+			<ion-router-outlet name="sleepiness"></ion-router-outlet>
+		</ion-tab>
+		<ion-tab-bar slot="bottom">
+			<ion-tab-button tab="view" href="/tabs/(view:view)">
+				<ion-icon name="list"></ion-icon>
+				<ion-label>Data</ion-label>
+			</ion-tab-button>
+			<ion-tab-button tab="overnight" href="/tabs/(overnight:overnight)">
+				<ion-icon name="moon"></ion-icon>
+				<ion-label>Overnight</ion-label>
+			</ion-tab-button>
+			<ion-tab-button tab="sleepiness" href="/tabs/(sleepiness:sleepiness)">
+				<ion-icon name="today"></ion-icon>
+				<ion-label>Sleepiness</ion-label>
+			</ion-tab-button>
+		</ion-tab-bar>
+	</ion-tabs>
+<!--/ion-content-->
+
