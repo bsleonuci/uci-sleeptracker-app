@@ -14,6 +14,16 @@ export class StanfordSleepinessData extends SleepData {
 	'No longer fighting sleep, sleep onset soon; having dream-like thoughts']; //7
 
 	private loggedValue:number;
+	
+	static fromJSON(obj:{}){
+		var newValue = obj["loggedValue"];
+		var newAt = new Date(obj["loggedAt"].seconds*1000);
+		return new this(newValue, newAt);
+	}
+
+	getValue():number{
+	  return this.loggedValue;
+	}
 
 	constructor(loggedValue:number, loggedAt:Date = new Date()) {
 		super();
@@ -23,5 +33,18 @@ export class StanfordSleepinessData extends SleepData {
 
 	summaryString():string {
 		return this.loggedValue + ": " + StanfordSleepinessData.ScaleValues[this.loggedValue];
+	}
+
+	toJSON():{}{
+		return {
+		"type": "sleepiness",
+		"loggedValue": this.loggedValue,
+		"loggedAt": this.loggedAt
+		};
+	}
+
+	fromJSON(json:{}){
+		this.loggedValue = json["loggedValue"];
+		this.loggedAt = new Date(json["loggedAt"].seconds*1000);
 	}
 }

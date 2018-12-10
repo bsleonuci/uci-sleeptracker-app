@@ -14,11 +14,12 @@ export class FirebaseService {
   }
 
   addSleepLog(sleepLog:SleepData) {
-  	//TODO: implement this function to add sleep logs
+  	this.collection.add(sleepLog.toJSON()).then((reference) =>{
+  		console.log("Reference:",reference);
+  	});
   }
 
   getSleepLogs():Observable<DocumentData[]> {
-  	//TODO: implement this function to retrieve sleep logs
-    return undefined;
+	return this.collection.valueChanges();
   }
 }

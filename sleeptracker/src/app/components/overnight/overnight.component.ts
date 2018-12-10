@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { OvernightSleepData } from '../../data/overnight-sleep-data';
 import { SleepData } from '../../data/sleep-data';
-import { SleepService } from '../../services/sleep.service';
+import { FirebaseService } from '../../services/firebase.service';
 import { AlertController } from '@ionic/angular';
 
 
@@ -16,19 +16,70 @@ export class OvernightComponent implements OnInit {
 @Input() startDate:string = "";
 @Input() endDate:string = "";
 
-  constructor(public sleepService:SleepService, public alertController:AlertController) { }
+  public toSave:OvernightSleepData;
+  public today:string;
+  public minimum:string;
+
+  constructor(public alertController:AlertController, public firebaseService:FirebaseService) { }
 
   ngOnInit() {
+  	var todayDate = new Date(Date.now());
+	var monthActual = todayDate.getMonth() + 1;
+	var date = this.normalizeDigit(todayDate.getDate());
+	var month = this.normalizeDigit(monthActual);
+	this.today = todayDate.getFullYear() + "-" + month + "-" + date + "T00:00Z";
+
+	console.log("Today's Date:", this.today);
+	this.minimum = "" + (todayDate.getFullYear() - 1);
+	this.startDate = this.today;
   }
 
+  normalizeDigit(value: number):string{
+  return value < 10 ? "0" + value : "" + value;
+  }
+  
   async savedAlert(){
     const alert = await this.alertController.create({
-      message: "Overnight sleep data has been saved!",
+      message: "Overnight Sleep Data will be logged for " + this.toSave.dateString() + ": " + this.toSave.summaryString(),
+      buttons: [
+        {
+          text: 'OK',
+          handler: () =>{
+            this.firebaseService.addSleepLog(this.toSave);
+	    this.clearDates();   
+	  }
+        },
+        {
+          text: 'Cancel',
+          handler: () =>{
+	    this.cancelAlert();
+	    this.toSave = null;
+          }
+        }
+      ]
+    });
+    
+    await alert.present();
+  }
+
+  async cancelAlert(){
+    const alert = await this.alertController.create({
+      message: "Save cancelled!",
       buttons: ['OK']
     });
     
     await alert.present();
   }
+
+  async errorAlert(){
+    const alert = await this.alertController.create({
+      message: "Invalid sleep data provided! Data not saved.",
+      buttons: ['OOPS']
+    });
+
+    await alert.present();
+  }
+
 
   addOffSet(date: string){
     var reformatted = new Date(date).toISOString();
@@ -47,22 +98,28 @@ export class OvernightComponent implements OnInit {
   }
 
   clearDates(){
-    this.startDate = "";
+    this.startDate = this.today;
     this.endDate = "";
+    this.toSave = null;
   }
 
   logOvernightDates(){
     if(this.startDate == "" || this.endDate == ""){
       console.log("bad input");
+      this.errorAlert();
       this.clearDates();
     }
     else{
       var start = new Date(this.addOffSet(this.startDate));
       var end = new Date(this.addOffSet(this.endDate));
-      var data = new OvernightSleepData(start, end);
-      this.sleepService.logOvernightData(data);
-      this.savedAlert();
-      this.clearDates();
+      if(start >= end){
+        this.errorAlert();
+	this.clearDates();
+      }
+      else{
+        this.toSave = new OvernightSleepData(start, end);
+        this.savedAlert();
+      }
     }
-    }
+  }
 }

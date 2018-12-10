@@ -4,14 +4,14 @@
 </ion-item>
 <ion-item>
 	<ion-label>Slept At</ion-label>
-	<ion-datetime placeholder="MM-DD-YYYY, HH:mm" display-format="MM-DD-YYYY, HH:mm" [(ngModel)]="startDate"></ion-datetime>
+	<ion-datetime placeholder="MM-DD-YYYY, HH:mm" [min]="minimum" [max]="today" display-format="MM/DD/YYYY, HH:mm" [(ngModel)]="startDate"></ion-datetime>
 </ion-item>
 
 <ion-item>
 	<ion-label>Woke At</ion-label>
-	<ion-datetime placeholder="MM-DD-YYYY, HH:mm" display-format="MM-DD-YYYY, HH:mm" [(ngModel)]="endDate"></ion-datetime>
+	<ion-datetime placeholder="MM-DD-YYYY, HH:mm" [min]="startDate" [max]="today" display-format="MM/DD/YYYY, HH:mm" [(ngModel)]="endDate"></ion-datetime>
 </ion-item>
 
 <ion-item lines="none">
-	<ion-button (click)="logOvernightDates()">Save</ion-button>
+	<ion-button id="save" (click)="logOvernightDates()">Save</ion-button>
 </ion-item>

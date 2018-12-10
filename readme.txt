@@ -5,7 +5,14 @@
 
 
 2. What online resources did you consult when completing this assignment? (list specific URLs)
-
+	https://www.w3schools.com/jsref/jsref_tofixed.asp
+	https://www.w3schools.com/jsref/jsref_obj_date.asp
+	https://www.w3schools.com/jsref/jsref_obj_array.asp
+	https://beta.ionicframework.com/docs/api/alert/
+	https://beta.ionicframework.com/docs/api/datetime
+	https://stackoverflow.com/questions/15300234/how-can-i-horizontally-center-a-button-element-in-a-div-element
+	https://beta.ionicframework.com/docs/api/tab-button
+	https://beta.ionicframework.com/docs/api/item-divider
 
 
 3. What classmates or other individuals did you consult as part of this assignment? What did you discuss?

@@ -1,6 +1,6 @@
 import * as shortid from 'shortid';
 
-export class SleepData {
+export abstract class SleepData {
 	id:string;
 	loggedAt:Date;
 
@@ -15,6 +15,9 @@ export class SleepData {
 	}
 
 	dateString():string {
-		return this.loggedAt.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+		return "" + (this.loggedAt.getMonth() + 1) + "/" + this.loggedAt.getDate() + "/" + this.loggedAt.getFullYear();
 	}
+
+	abstract toJSON():{};
+
 }

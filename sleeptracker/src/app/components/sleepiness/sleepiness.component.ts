@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { SleepService } from '../../services/sleep.service';
+import { FirebaseService } from '../../services/firebase.service';
 
 import { StanfordSleepinessData } from '../../data/stanford-sleepiness-data';
 import { AlertController } from '@ionic/angular';
@@ -12,9 +12,11 @@ import { AlertController } from '@ionic/angular';
 })
 export class SleepinessComponent implements OnInit {
 
-  private chosenValue = 0;
+  private chosenValue:number = 1;
+  public toSave:StanfordSleepinessData = null;
 
-  constructor(public sleepService:SleepService, public alertController:AlertController) { }
+
+  constructor(public alertController:AlertController, public firebaseService:FirebaseService) { }
 
   ngOnInit() {
     
@@ -22,10 +24,44 @@ export class SleepinessComponent implements OnInit {
   
   async savedAlert(){
     const alert = await this.alertController.create({
-      message: "Sleepiness data has been saved!",
+      message: "Sleepiness Data will be saved as: " + this.toSave.dateString() + ": " + this.toSave.summaryString(),
+      buttons: [
+        {
+          text: 'OK',
+          handler: () =>{
+            this.firebaseService.addSleepLog(this.toSave);
+	    this.chosenValue = 1;
+	    this.toSave = null;
+	  }
+        },
+        {
+          text: 'Cancel',
+          handler: () =>{
+	    this.cancelAlert();
+	    this.toSave = null;
+          }
+        }
+      ]
+    });
+    
+    await alert.present();
+  }
+
+  async cancelAlert(){
+    const alert = await this.alertController.create({
+      message: "Save cancelled!",
       buttons: ['OK']
     });
     
+    await alert.present();
+  }
+  
+  async errorAlert(){
+    const alert = await this.alertController.create({
+      message: "Invalid sleep data provided! Data not saved.",
+      buttons: ['OOPS']
+    });
+
     await alert.present();
   }
 
@@ -34,17 +70,14 @@ export class SleepinessComponent implements OnInit {
   }
 
   logSleepiness(){
-  if(this.chosenValue == 0){
-  }
-  else{
-    console.log(this.chosenValue);
-    var date = new Date(Date.now());
-    console.log(date);
-    var data = new StanfordSleepinessData(this.chosenValue, date);
-    this.sleepService.logSleepinessData(data);
-    this.savedAlert();
-    this.chosenValue = 0;
-  }
+    if(this.chosenValue == 0){
+      this.errorAlert();
+    }
+    else{
+      var date = new Date(Date.now());
+      this.toSave = new StanfordSleepinessData(this.chosenValue, date);
+      this.savedAlert();
+    }
   }
 
 }

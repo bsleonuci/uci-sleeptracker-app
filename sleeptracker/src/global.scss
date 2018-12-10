@@ -10,3 +10,51 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+.ios{
+	--ion-background-color: var(--ion-color-dark);
+	--ion-text-color: var(--ion-color-dark-contrast);
+	ion-item-divider{
+		--background: var(--ion-color-dark);
+	}
+	ion-content{
+		ion-title{
+			font-size: 20px;
+			padding: 0px 50px 0px 0px;
+			--color: var(--ion-color-dark-contrast);
+		}
+	}
+	ion-item{
+		--border-color: #000000;
+	}
+}
+
+.md{
+	--ion-background-color: var(--ion-color-dark);
+	--ion-text-color: var(--ion-color-dark-contrast);
+}
+
+.alert-wrapper{
+	--background: #555555;
+	.alert-message{
+		color: var(--ion-color-dark-contrast);
+	}
+	.alert-button{
+		color: var(--ion-color-primary);
+	}
+}
+
+ion-toolbar, ion-footer{
+	--background: var(--ion-color-primary);
+}
+
+ion-tab-bar{
+	--background: var(--ion-color-primary);
+}
+
+ion-tab-button{
+	--ripple-color: #FFFFFF;
+	--background: var(--ion-color-primary);
+	--color: #888888;
+	--background-selected: #AAAAFF;
+	--color-selected: var(--ion-color-dark-contrast);
+}

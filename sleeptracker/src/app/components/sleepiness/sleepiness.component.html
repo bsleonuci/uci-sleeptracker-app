@@ -6,7 +6,7 @@
 	<ion-radio-group [(ngModel)]=chosenValue>
 		<ion-item *ngFor="let option of sleepinessOptions; let i = index">
 			<ion-item *ngIf="i != 0">
-				<ion-label text-wrap>{{option}}</ion-label>
+				<ion-label text-wrap>{{i}}: {{option}}</ion-label>
 				<ion-radio slot="start" [value]=i></ion-radio>
 			</ion-item>
 		</ion-item>
