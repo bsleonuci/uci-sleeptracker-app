@@ -1,18 +1,18 @@
 <ion-item-group>
-	<ion-item-divider>
-		<ion-title>Overnight Sleep Data</ion-title>
+	<ion-item-divider text-left>
+		<ion-title>Overnight Sleep Data</ion-title> <ion-icon size="large" name="moon" slot="start"></ion-icon>
 	</ion-item-divider>
 	<ion-item *ngIf="overnightData.length" no-padding>
 		<ion-text>Average: {{averageOvernight}} per nap.</ion-text> 
 	</ion-item>
-	<ion-item-group *ngFor="let data of overnightData">
-		<ion-item>
+	<ion-virtual-scroll [items]="overnightData">
+		<ion-item *virtualItem="let data">
 			<ion-text>{{data.dateString()}}: {{data.summaryString()}}</ion-text>
 		</ion-item>
-	</ion-item-group>
+	</ion-virtual-scroll>
 
-	<ion-item-divider>
-		<ion-title>Sleepiness Data</ion-title>
+	<ion-item-divider text-left>
+		<ion-title>Sleepiness Data</ion-title> <ion-icon size="large" name="today" slot="start"></ion-icon>
 	</ion-item-divider>
 	<ion-item *ngIf="sleepinessData.length" no-padding>
 		<ion-text>Average sleepiness score: {{averageSleepiness}} </ion-text>
